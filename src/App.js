@@ -9,6 +9,7 @@ import ClearResults from './components/clear-results/clear-results.component';
 
 //pages
 import About from "./pages/about.component";
+import UserPage from "./pages/user.component"
 
 export class App extends Component {
   constructor () {
@@ -16,6 +17,8 @@ export class App extends Component {
 
     this.state = {
       users: [],
+      user : {},
+      userRepos : [],
       isLoading : false,
       showClear : false,
       searchStr : undefined
@@ -52,6 +55,31 @@ export class App extends Component {
     
     return this.state.searchStr ? res.items  : res
   }
+
+  getUser = async(user) => {
+    this.setState({isLoading : true})
+
+    let options = new URLSearchParams({
+      client_id : process.env.REACT_APP_CLIENT_ID,
+      client_secret : process.env.REACT_APP_CLIENT_SECRET
+    })
+
+    const url = `https://api.github.com/users/${user}?`
+    const res = await fetch(url + options)
+                  .then(result => result.json())
+                  .catch(result => result)
+    this.setState({user: res, isLoading: false,})
+  }
+
+  getRepo = async(user) => {
+    const url = `${process.env.REACT_APP_REPO_URL}/?username=${user}`
+    console.log(url)
+    const res = await fetch(url)
+                  .then(result => result.json())
+                  .catch(result => result)
+    console.log(res)
+    this.setState({userRepos: res})
+  }
   
 
   handleClickSearch = (e, searchString) =>{
@@ -84,7 +112,7 @@ export class App extends Component {
 
 
   render() {
-    const {users, isLoading, showClear ,searchStr} = this.state
+    const {users, isLoading, showClear ,searchStr, user, userRepos} = this.state
 
     console.log("render called")
 
@@ -109,6 +137,19 @@ export class App extends Component {
               }
             />
             <Route exact path="/about" component={About}/>
+            <Route exact path={"/user/:login"} 
+              render={props => (
+                <UserPage
+                  {...props}
+                  user={user}
+                  userRepos={userRepos}
+                  getUser={this.getUser}
+                  getRepo={this.getRepo}
+                  isLoading={isLoading}
+                />
+                )
+              }
+            />
           </Switch>
         </div>
       </Router>

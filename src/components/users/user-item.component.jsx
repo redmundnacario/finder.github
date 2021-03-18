@@ -1,5 +1,6 @@
 import React from 'react'
-import {Card, Image} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {Card, Image, Button} from 'react-bootstrap'
 
 
 const UserItem = ({user : {login, avatar_url, html_url}}) => {
@@ -9,7 +10,7 @@ const UserItem = ({user : {login, avatar_url, html_url}}) => {
                 <Card.Title>{login}</Card.Title>
                 <Image src={avatar_url} alt="" roundedCircle/>
                 <div>
-                    <a role="button" className="btn btn-dark btn-sm mt-3" href={html_url}>Visit Page</a>
+                    <Link as={Button} className="btn btn-dark btn-sm mt-3" to={`/user/${login}`}>Visit Page</Link>
                 </div>
 
             </Card.Body>
