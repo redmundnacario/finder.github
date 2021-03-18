@@ -1,14 +1,19 @@
 import React from 'react'
+import {Card, Image} from 'react-bootstrap'
+
 
 const UserItem = ({user : {login, avatar_url, html_url}}) => {
     return (
-        <div className="user-item card text-center">
-            <h2>{login}</h2>
-            <img className="round-img" src={avatar_url} alt=""/>
-            <div>
-                <a className="btn btn-dark btn-sm my-1" href={html_url}>Visit Page</a>
-            </div>
-        </div>
+        <Card className="user-item text-center">
+            <Card.Body>
+                <Card.Title>{login}</Card.Title>
+                <Image src={avatar_url} alt="" roundedCircle/>
+                <div>
+                    <a role="button" className="btn btn-dark btn-sm mt-3" href={html_url}>Visit Page</a>
+                </div>
+
+            </Card.Body>
+        </Card>
     )
 }
 
