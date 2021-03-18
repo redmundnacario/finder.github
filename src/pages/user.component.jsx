@@ -44,7 +44,7 @@ export class UserPage extends Component {
                         </Link>
                     </div>
                     
-                    <Card className='mt-3' >
+                    <Card className='mt-3' style={{border:"none"}}>
                         <Card.Body style = {{display:"grid",gridTemplateColumns:"1fr 1fr",gridGap:"2vh"}}>
                             <div className='text-center' style={{display: "flex", justifyContent: "center"}}>
                                 <div>
@@ -69,7 +69,7 @@ export class UserPage extends Component {
                                 <div >
                                     {bio && (
                                         <Fragment>
-                                        <h3>Bio</h3>
+                                        <h4>Bio</h4>
                                         <p>{bio}</p>
                                         </Fragment>
                                     )}
@@ -107,7 +107,7 @@ export class UserPage extends Component {
                             </div>
                         </Card.Body>
                     </Card>
-                    <Card className="mt-3" >
+                    <Card className="mt-3" style={{border:"none"}}>
                         <Card.Body style = {{display:"flex"}} className="mx-auto my-auto">
                             <h5>
                                 <Badge className="mr-1" variant='primary'>Followers: {followers}</Badge>
