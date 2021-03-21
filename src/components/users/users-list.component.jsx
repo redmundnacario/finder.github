@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useContext, useEffect } from 'react';
 
+import GithubContext from '../../context/github/githubContext.js'; 
 import UserItem from './user-item.component';
 import Spinner from '../shared/spinner/spinner.component';
 
 import './user.styles.scss';  
 
-const UserList = ({users, isLoading}) => {
+const UserList = () => {
 
+    const githubContext = useContext(GithubContext)
+    const { users, isLoading, getUsers } = githubContext
     
+    useEffect(()=>{
+        getUsers()
+        // eslint-disable-next-line
+    },[])
+
     if (isLoading | users.length === 0){
 
         return <Spinner/>

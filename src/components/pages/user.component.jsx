@@ -1,12 +1,16 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useContext } from 'react'
 import {Link} from 'react-router-dom'
 import {Badge, Card , Image} from 'react-bootstrap'
 
-import Repos from '../components/repos/repos.component';
-import Spinner from '../components/shared/spinner/spinner.component';
+import Repos from '../repos/repos.component';
+import Spinner from '../shared/spinner/spinner.component';
 
+import GithubContext from '../../context/github/githubContext';
 
-const UserPage = ({user, isLoading, userRepos, getUser, getRepo, match}) => {
+const UserPage = ({match}) => {
+
+    const githubContext = useContext(GithubContext)
+    const { user, isLoading, userRepos, getUser, getRepo } = githubContext
 
     useEffect(() => {
         getUser(match.params.login)
