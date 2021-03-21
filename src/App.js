@@ -1,4 +1,4 @@
-import React, {Fragment, Component } from 'react'
+import React, {Fragment , useState, useEffect} from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 import NavbarComponent from './components/shared/navbar/navbar.component';
@@ -11,26 +11,21 @@ import './App.scss';
 import About from "./pages/about.component";
 import UserPage from "./pages/user.component"
 
-export class App extends Component {
-  constructor () {
-    super ()
+const App = () => {
 
-    this.state = {
-      users: [],
-      user : {},
-      userRepos : [],
-      isLoading : false,
-      showClear : false,
-      searchStr : undefined
-    }
-  }
+  const [users, setUsers] = useState([])
+  const [user, setUser] = useState({})
+  const [userRepos, setUserRepos] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [showClear, setShowClear] = useState(false)
+  const [searchStr, setSearchStr] = useState(undefined)
 
 
-  getUsers = async() =>{
-    this.setState({isLoading : true})
+  const getUsers = async() =>{
+    setIsLoading(true)
   
     const userSearch = new URLSearchParams({
-        q: this.state.searchStr
+        q: searchStr
     })
   
     let options = new URLSearchParams({
@@ -38,11 +33,11 @@ export class App extends Component {
         client_secret : process.env.REACT_APP_CLIENT_SECRET
     })
   
-    options = "" + options + (this.state.searchStr ? `&` + userSearch : "")
+    options = "" + options + (searchStr ? `&` + userSearch : "")
   
     
     let url;
-    if (this.state.searchStr){
+    if (searchStr){
       url = `https://api.github.com/search/users?`
     } else {
       url = `https://api.github.com/users?`
@@ -52,12 +47,13 @@ export class App extends Component {
     const res = await fetch(url+ options)
                 .then(response => response.json())
                 .then(result => result)
-    
-    return this.state.searchStr ? res.items  : res
+    setUsers(searchStr ? res.items  : res)
+    setIsLoading(false)
+    setShowClear(true)
   }
 
-  getUser = async(user) => {
-    this.setState({isLoading : true})
+  const getUser = async(user) => {
+    setIsLoading(true)
 
     let options = new URLSearchParams({
       client_id : process.env.REACT_APP_CLIENT_ID,
@@ -68,99 +64,81 @@ export class App extends Component {
     const res = await fetch(url + options)
                   .then(result => result.json())
                   .catch(result => result)
-    this.setState({user: res, isLoading: false,})
+    
+    setUser(res)
+    setIsLoading(false)
   }
 
-  getRepo = async(user) => {
+  const getRepo = async(user) => {
     const url = `${process.env.REACT_APP_REPO_URL}/?username=${user}`
     console.log(url)
     const res = await fetch(url)
                   .then(result => result.json())
                   .catch(result => result)
-    console.log(res)
-    this.setState({userRepos: res})
+    
+    setUserRepos(res)
   }
   
 
-  handleClickSearch = (e, searchString) =>{
+  const handleClickSearch = (e, searchString) =>{
     e.preventDefault()
-
-    console.log(searchString)
-
-    this.setState({searchStr: searchString}, async() => {
-      const res = await this.getUsers()
-      this.setState({users: res, 
-                     isLoading: false,
-                     showClear: true })
-    })
+    setSearchStr(searchString)
+    setUsers([])
   }
   
-  clearResults = (e) => {
+  const clearResults = (e) => {
     e.preventDefault()
-    this.setState({showClear: false, 
-                   searchStr: undefined,
-                   users: []}, async() => {
-                    await this.fetchUsers()
-                  })
+    setShowClear(false)
+    setSearchStr(undefined)
 
+    setUsers([])
   }
 
-  async componentDidMount(){
-    await this.fetchUsers()
-  }
-
-  fetchUsers = async() => {
-    const res = await this.getUsers()
-    this.setState({users: res, 
-                   isLoading: false,
-                   showClear: true })
-  }
-
-
-  render() {
-    const {users, isLoading, showClear ,searchStr, user, userRepos} = this.state
-
+  useEffect(() => {
     console.log("render called")
+    getUsers()
+    // eslint-disable-next-line
+  } , [searchStr])
 
-    return (
-      <Router>
-        <div className="App">
-          <NavbarComponent/>
-          <Switch>
-            <Route
-              exact
-              path = "/"
-              render = { props => (
-                <Fragment>
-                  <SearchBar 
-                  handleClickSearch = {this.handleClickSearch}/>
-                  { showClear && (<ClearResults searchStr={searchStr} handleClick={this.clearResults} />)}
-                  <UserList 
-                    users={users}
-                    isLoading={isLoading}/>
-                </Fragment>
+  return (
+    <Router>
+      <div className="App mb-5">
+        <NavbarComponent/>
+        <Switch>
+          <Route
+            exact
+            path = "/"
+            render = { props => (
+              <Fragment>
+                <SearchBar
+                resetSearch = {showClear}
+                handleClickSearch = {handleClickSearch}/>
+                { showClear && (<ClearResults searchStr={searchStr} handleClick={clearResults} />)}
+                <UserList 
+                  users={users}
+                  isLoading={isLoading}/>
+              </Fragment>
+            )
+            }
+          />
+          <Route exact path="/about" component={About}/>
+          <Route exact path={"/user/:login"} 
+            render={props => (
+              <UserPage
+                {...props}
+                user={user}
+                userRepos={userRepos}
+                getUser={getUser}
+                getRepo={getRepo}
+                isLoading={isLoading}
+              />
               )
-              }
-            />
-            <Route exact path="/about" component={About}/>
-            <Route exact path={"/user/:login"} 
-              render={props => (
-                <UserPage
-                  {...props}
-                  user={user}
-                  userRepos={userRepos}
-                  getUser={this.getUser}
-                  getRepo={this.getRepo}
-                  isLoading={isLoading}
-                />
-                )
-              }
-            />
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+            }
+          />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
 export default App
