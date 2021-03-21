@@ -5,7 +5,7 @@ import NavbarComponent from './components/shared/navbar/navbar.component';
 import SearchBar from './components/search-bar/search-bar.component';
 import UserList from './components/users/users-list.component';
 import ClearResults from './components/clear-results/clear-results.component';
-// import './App.scss';
+import './App.scss';
 
 //pages
 import About from "./pages/about.component";
@@ -98,16 +98,22 @@ export class App extends Component {
   clearResults = (e) => {
     e.preventDefault()
     this.setState({showClear: false, 
-                   users: []})
+                   searchStr: undefined,
+                   users: []}, async() => {
+                    await this.fetchUsers()
+                  })
 
   }
 
   async componentDidMount(){
+    await this.fetchUsers()
+  }
+
+  fetchUsers = async() => {
     const res = await this.getUsers()
     this.setState({users: res, 
                    isLoading: false,
                    showClear: true })
-
   }
 
 

@@ -1,33 +1,33 @@
 import React, {Fragment} from 'react'
-import {Row, Col, Card ,Badge} from 'react-bootstrap'
+import {Card ,Badge, CardColumns} from 'react-bootstrap'
 const Repos = ({repos}) => {
-    repos = repos.slice(0,4)
+    // repos = repos.slice(0,4)
     return (
-        <Row >
+        <CardColumns className="mt-2" >
             {
                 repos.map((repo,index)=>(
-                    <Col key={index} >
-                        <Card>
-                            <Card.Body>
-                                <Card.Title><a rel="noreferrer" target="_blank" href={repo.link}>{repo.repo}</a></Card.Title>
-                                <Card.Text>
-                                    {repo.description}
-                                    <div className="mb-0 mt-2" style={{display:"flex",justifyContent:"space-between"}}>
-                                        <span className="align-middle">
-                                        <Badge  variant='warning'>{repo.language}</Badge>
-                                        </span>
-                                        <div>
-                                            {repo.stars > 0 ? <Fragment><i className="far fa-star"></i> {repo.stars} </Fragment> : ""}
-                                            {repo.forks > 0 ? <Fragment><i class="fas fa-code-branch"></i> {repo.forks}</Fragment> : ""}
-                                        </div>
+                    
+                    <Card key={index} >
+                        <Card.Body>
+                            <Card.Title><a rel="noreferrer" target="_blank" href={repo.link}>{repo.repo}</a></Card.Title>
+                            <div>
+                                {repo.description}
+                                <div className="mb-0 mt-2" style={{display:"flex",justifyContent:"space-between"}}>
+                                    <span className="align-middle">
+                                    <Badge variant='warning'>{repo.language}</Badge>
+                                    </span>
+                                    <div>
+                                        {repo.stars > 0 ? <Fragment><i className="far fa-star"></i> {repo.stars} </Fragment> : ""}
+                                        {repo.forks > 0 ? <Fragment><i className="fas fa-code-branch ml-2"></i> {repo.forks}</Fragment> : ""}
                                     </div>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                                </div>
+                            </div>
+                        </Card.Body>
+                    </Card>
+    
                 ))
             }
-        </Row>
+        </CardColumns>
     )
 }
 

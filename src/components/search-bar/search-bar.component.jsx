@@ -23,7 +23,7 @@ class SearchBar extends Component {
     
         const {handleClickSearch} = this.props
         return (
-            <div className="search-bar-container container">
+            <div className="search-bar-container container mt-5">
                 <form className="search-bar" onSubmit={ (e) => handleClickSearch(e, this.state.searchString)}>
                     <InputGroup>
                         <FormControl 
@@ -34,7 +34,7 @@ class SearchBar extends Component {
                         >
                         </FormControl>
                         <InputGroup.Append>
-                            <Button variant="primary" type="submit" onClick={null}>Go!</Button>
+                            <Button variant="primary" type="submit" onClick={null}><i class="fas fa-search"></i></Button>
                         </InputGroup.Append>
                     </InputGroup>
                 </form>

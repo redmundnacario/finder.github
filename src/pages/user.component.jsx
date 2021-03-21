@@ -69,7 +69,6 @@ export class UserPage extends Component {
                                 <div >
                                     {bio && (
                                         <Fragment>
-                                        <h4>Bio</h4>
                                         <p>{bio}</p>
                                         </Fragment>
                                     )}
@@ -124,6 +123,7 @@ export class UserPage extends Component {
                         </Card.Body>
                     </Card>
                     <div className="mt-3">
+                        <h3>Pinned Repositories</h3>
                         <Repos repos={userRepos}/>    
                     </div>
                 </div>

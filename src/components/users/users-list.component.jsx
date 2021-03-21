@@ -15,7 +15,7 @@ const UserList = ({users, isLoading}) => {
     } else {
 
         return (
-            <div className="user-list container">
+            <div className="user-list container mt-5">
                 {
                     users.map(user => (
                         <UserItem key={user.id} user={user}/>

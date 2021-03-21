@@ -8,7 +8,13 @@ const Spinner = () => {
             <img 
                 src={spinner} 
                 alt="loading"
-                style={{width : '200px', margin : 'auto', display: 'block'}}
+                style={{
+                    width : '100px', 
+                    margin : 'auto',
+                    display: 'block',
+                    position: 'absolute',
+                    top: '40vh',
+                    left: 'calc(50% - 50px)'}}
             />
         </Fragment>
     )

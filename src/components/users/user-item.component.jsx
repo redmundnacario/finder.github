@@ -2,10 +2,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {Card, Image, Button} from 'react-bootstrap'
 
+const UserItem = ({user : {login, avatar_url}}) => {
 
-const UserItem = ({user : {login, avatar_url, html_url}}) => {
+
     return (
-        <Card className="user-item text-center">
+        <Card className="user-item text-center" >
             <Card.Body>
                 <Card.Title>{login}</Card.Title>
                 <Image src={avatar_url} alt="" roundedCircle/>
