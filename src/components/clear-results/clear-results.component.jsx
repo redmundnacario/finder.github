@@ -13,7 +13,7 @@ const ClearResults = ({usersLength, searchString, showResultName}) => {
      const handleClick =  (e) => {
         e.preventDefault()
         githubContext.clearUsers()
-        setTimeout(()=> githubContext.getUsers(), 2000)
+        setTimeout(()=> githubContext.getUsers(), 500)
     }
 
     return (

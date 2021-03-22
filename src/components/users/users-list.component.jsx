@@ -1,4 +1,4 @@
-import React, {useContext, useEffect } from 'react';
+import React, {useContext } from 'react';
 
 import GithubContext from '../../context/github/githubContext.js'; 
 import UserItem from './user-item.component';
@@ -9,12 +9,12 @@ import './user.styles.scss';
 const UserList = () => {
 
     const githubContext = useContext(GithubContext)
-    const { users, isLoading, getUsers } = githubContext
+    const { users, isLoading } = githubContext
     
-    useEffect(()=>{
-        getUsers()
-        // eslint-disable-next-line
-    },[])
+    // useEffect(()=>{
+    //     getUsers()
+    //     // eslint-disable-next-line
+    // },[])
 
     if (isLoading | users.length === 0){
 

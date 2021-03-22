@@ -125,10 +125,18 @@ const UserPage = ({match}) => {
                             <Badge className="mr-1" variant='dark'>Public Gists: {public_gists}</Badge>
                         </h5>
                     </Card.Body>
-                </Card>
+                </Card> 
                 <div className="mt-3">
-                    <h3>Pinned Repositories</h3>
-                    <Repos repos={userRepos}/>    
+                {
+                    userRepos.length > 0
+                        ?
+                            <Fragment>
+                                <h3>Pinned Repositories</h3>
+                                <Repos repos={userRepos}/>  
+                            </Fragment>
+                        :
+                            <Spinner local={true}/>
+                }
                 </div>
             </div>
         )

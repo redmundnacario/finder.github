@@ -8,9 +8,23 @@ import {
     CLEAR_USERS,
     GET_USER,
     GET_USERREPOS,
+    CLEAR_USERREPOS,
     SET_LOADING
 } from '../types'
 
+let githubClientId;
+let githubClientSecret;
+let githubRepoUrl;
+
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+  githubRepoUrl = process.env.REACT_APP_REPO_URL;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+  githubRepoUrl = process.env.REPO_URL;
+}
 
 const GithubState = props => {
     const initialState ={
@@ -31,8 +45,8 @@ const GithubState = props => {
         })
       
         let options = new URLSearchParams({
-            client_id : process.env.REACT_APP_CLIENT_ID,
-            client_secret : process.env.REACT_APP_CLIENT_SECRET
+            client_id : githubClientId,
+            client_secret : githubClientSecret
         })
       
         options = "" + options + (searchStr ? `&` + userSearch : "")
@@ -66,8 +80,8 @@ const GithubState = props => {
         setIsLoading()
     
         let options = new URLSearchParams({
-          client_id : process.env.REACT_APP_CLIENT_ID,
-          client_secret : process.env.REACT_APP_CLIENT_SECRET
+          client_id : githubClientId,
+          client_secret : githubClientSecret
         })
     
         const url = `https://api.github.com/users/${user}?`
@@ -82,8 +96,9 @@ const GithubState = props => {
 
     // Get user repos
     const getRepo = async(user) => {
+        clearUserRepos()
         setIsLoading()
-        const url = `${process.env.REACT_APP_REPO_URL}/?username=${user}`
+        const url = `${githubRepoUrl}/?username=${user}`
         
         const res = await fetch(url)
                       .then(result => result.json())
@@ -98,7 +113,7 @@ const GithubState = props => {
     // Set Loading
     const setIsLoading = () => { dispatch({type:SET_LOADING})}
     
-
+    const clearUserRepos = () => {dispatch({type:CLEAR_USERREPOS})}
     
     return (
         <GithubContext.Provider
@@ -111,7 +126,8 @@ const GithubState = props => {
                 setIsLoading,
                 clearUsers,
                 getUser,
-                getRepo
+                getRepo,
+                clearUserRepos
             }}
         >
             {props.children}

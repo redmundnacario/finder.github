@@ -4,6 +4,8 @@ import {InputGroup,
         FormControl, 
         Button} from 'react-bootstrap'
 
+
+import AlertContext from '../../context/alert/alertContext'
 import GithubContext from '../../context/github/githubContext'
 
 import ClearResults from '../clear-results/clear-results.component'
@@ -13,6 +15,7 @@ import './search.styles.scss'
 
 const SearchBar = () => {
 
+    const alertContext = useContext(AlertContext)
     const githubContext = useContext(GithubContext)
   
     const [searchString, setSearchString] = useState(undefined)
@@ -28,8 +31,15 @@ const SearchBar = () => {
 
     const handleClickSearch = (e) => {
         e.preventDefault()
-        githubContext.getUsers(searchString)
-        setShowResultName(true)
+
+        if (/^ *$/.test(searchString) || searchString === undefined){
+            alertContext.setAlert({title: "Note", message: `Cannot search with an empty string.`})
+            setSearchString(undefined)
+        } else {
+            githubContext.getUsers(searchString)
+            setShowResultName(true)
+
+        }
     }
 
     const handleChange = (e) => {
@@ -39,8 +49,8 @@ const SearchBar = () => {
 
 
     return (
-        <div>
-            <div className="search-bar-container container mt-5">
+        <div className="container">
+            <div className="search-bar-container mt-5">
                 <form className="search-bar" onSubmit={ handleClickSearch}>
                     <InputGroup>
                         <FormControl 
