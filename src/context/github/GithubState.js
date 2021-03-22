@@ -98,7 +98,7 @@ const GithubState = props => {
     const getRepo = async(user) => {
         clearUserRepos()
         setIsLoading()
-        const url = `${githubRepoUrl}/?username=${user}`
+        const url = `https${githubRepoUrl}/?username=${user}`
         
         const res = await fetch(url)
                       .then(result => result.json())
