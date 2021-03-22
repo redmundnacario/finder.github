@@ -17,15 +17,15 @@ const ClearResults = ({usersLength, searchString, showResultName}) => {
     }
 
     return (
-        <div className="clear-results-div container mt-5">
+        <div className="clear-results-div mt-5">
             {
-                usersLength > 0 && (<h3>{showResultName && searchString ? `Results for "${searchString}"` : "Default Search"}</h3>)
+                // usersLength > 0 && (<h3>{showResultName && searchString ? `Results for "${searchString}"` : "Default Search"}</h3>)
             }
             {
                 usersLength > 0 
                     ? <ButtonComponent
                         text={"Clear Results"}
-                        className={"button-clear"}
+                        className={"button-clear ml-auto"}
                         variant={"outline-danger"}
                         type={"button"}
                         size={"sm"}

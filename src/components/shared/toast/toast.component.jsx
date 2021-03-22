@@ -11,10 +11,9 @@ const Toast = ({message, title}) => {
 
     const toggleShow = () => {
         setShowToast(!showToast)
-        console.log("hide")
 
-        const toasty =document.querySelectorAll(".toasty")
-        console.log(toasty)
+        const toasty = document.querySelectorAll(".toasty")
+        
         if (toasty.length  === 1){
             alertContext.clearAlert()
         }

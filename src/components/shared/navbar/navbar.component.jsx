@@ -8,7 +8,7 @@ const NavbarComponent = () => {
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <div className = "container">
-                <Navbar.Brand href="#home" >
+                <Navbar.Brand as={Link} to="/">
                     <i className="fab fa-github"/> Github Finder
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
