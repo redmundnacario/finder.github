@@ -50,8 +50,8 @@ const SearchBar = () => {
 
     return (
         <div className="container">
-            <div className="search-bar-container mt-5">
-                <form className="search-bar" onSubmit={ handleClickSearch}>
+            <div className="search-bar-container">
+                <form className="search-bar mt-5" onSubmit={ handleClickSearch}>
                     <InputGroup>
                         <FormControl 
                             id="search-form"
