@@ -1,0 +1,13 @@
+.info-container{
+    border:none !important;
+    .info-body{
+        .info-content {
+            display: flex;
+            justify-content: center;
+        }
+        .info-content-v-center {
+            display: flex;
+            align-items: center;
+        }
+    }
+}

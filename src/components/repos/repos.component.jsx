@@ -3,7 +3,7 @@ import {Card ,Badge, CardColumns} from 'react-bootstrap'
 const Repos = ({repos}) => {
     // repos = repos.slice(0,4)
     return (
-        <CardColumns className="mt-2" >
+        <CardColumns className="mt-4" >
             {
                 repos.map((repo,index)=>(
                     

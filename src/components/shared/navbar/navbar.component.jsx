@@ -6,10 +6,10 @@ import {Navbar, Nav} from 'react-bootstrap';
 
 const NavbarComponent = () => {
     return (
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top">
             <div className = "container">
                 <Navbar.Brand as={Link} to="/">
-                    <i className="fab fa-github"/> Github Finder
+                    <h3><i className="fab fa-github"/> Github Finder</h3>    
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">

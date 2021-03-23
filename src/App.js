@@ -28,8 +28,8 @@ const App = () => {
   return (
     <AlertState>
       <Router>
-        <div className="App mb-5">
-          <NavbarComponent/>
+        <NavbarComponent/>
+        <div className="App">
           <ToastContainer/>
           <Switch>
             <Route exact path = "/" component = {Home}/>

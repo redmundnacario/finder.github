@@ -7,6 +7,8 @@ import Spinner from '../shared/spinner/spinner.component';
 
 import GithubContext from '../../context/github/githubContext';
 
+import './user.styles.scss';
+
 const UserPage = ({match}) => {
 
     const githubContext = useContext(GithubContext)
@@ -48,9 +50,9 @@ const UserPage = ({match}) => {
                     </Link>
                 </div>
                 
-                <Card className='mt-3' style={{border:"none"}}>
-                    <Card.Body style = {{display:"grid",gridTemplateColumns:"1fr 1fr",gridGap:"2vh"}}>
-                        <div className='text-center' style={{display: "flex", justifyContent: "center"}}>
+                <Card className='info-container mt-3' >
+                    <Card.Body className='info-body'>
+                        <div className='info-content text-center'>
                             <div>
                                 <Image
                                     roundedCircle
@@ -69,7 +71,7 @@ const UserPage = ({match}) => {
                             </div>
                         </div>
 
-                        <div style={{display: "flex", alignItems: "center"}}>
+                        <div className="info-content info-content-v-center">
                             <div >
                                 {bio && (
                                     <Fragment>
@@ -110,20 +112,12 @@ const UserPage = ({match}) => {
                         </div>
                     </Card.Body>
                 </Card>
-                <Card className="mt-3" style={{border:"none"}}>
-                    <Card.Body style = {{display:"flex"}} className="mx-auto my-auto">
-                        <h5>
-                            <Badge className="mr-1" variant='primary'>Followers: {followers}</Badge>
-                        </h5>
-                        <h5>
-                            <Badge className="mr-1" variant='success'>Following: {following}</Badge>
-                        </h5>
-                        <h5>
-                            <Badge className="mr-1" variant='light'>Public Repos: {public_repos}</Badge>
-                        </h5>
-                        <h5>
-                            <Badge className="mr-1" variant='dark'>Public Gists: {public_gists}</Badge>
-                        </h5>
+                <Card className="info-container mt-3">
+                    <Card.Body className="d-flex flex-wrap justify-content-center">
+                        <Badge className="mr-2 mb-2" variant='primary'>Followers: {followers}</Badge>
+                        <Badge className="mr-2 mb-2" variant='success'>Following: {following}</Badge>
+                        <Badge className="mr-2 mb-2" variant='light'>Public Repos: {public_repos}</Badge>
+                        <Badge className="mr-2 mb-2" variant='dark'>Public Gists: {public_gists}</Badge>              
                     </Card.Body>
                 </Card> 
                 <div className="mt-3">
