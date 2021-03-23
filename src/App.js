@@ -12,7 +12,8 @@ import './App.scss';
 //pages
 import About from "./components/pages/about.component";
 import Home from "./components/pages/home.component";
-import UserPage from "./components/pages/user.component"
+import UserPage from "./components/pages/user.component";
+import NotFound from "./components/pages/notfound.component";
 
 const App = () => {
 
@@ -34,7 +35,9 @@ const App = () => {
             <Route exact path = "/" component = {Home}/>
             <Route exact path="/about" component={About}/>
             <Route exact path={"/user/:login"} component={UserPage}/>
-          </Switch>
+            <Route exact path={"/user/:login"} component={UserPage}/>
+            <Route component={NotFound}/>
+            </Switch>
         </div>
       </Router>
     </AlertState>

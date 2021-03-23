@@ -14,16 +14,16 @@ import {
 
 let githubClientId;
 let githubClientSecret;
-let githubRepoUrl;
+
 
 if (process.env.NODE_ENV !== 'production') {
   githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
   githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
-  githubRepoUrl = process.env.REACT_APP_REPO_URL;
+  
 } else {
   githubClientId = process.env.GITHUB_CLIENT_ID;
   githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
-  githubRepoUrl = process.env.REPO_URL;
+  
 }
 
 const GithubState = props => {
@@ -98,7 +98,7 @@ const GithubState = props => {
     const getRepo = async(user) => {
         clearUserRepos()
         setIsLoading()
-        const url = `https${githubRepoUrl}/?username=${user}`
+        const url = `https://gh-pinned-repos-5l2i19um3.vercel.app/?username=${user}`
         
         const res = await fetch(url)
                       .then(result => result.json())
